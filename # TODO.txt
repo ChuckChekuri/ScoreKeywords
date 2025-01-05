@@ -1,0 +1,98 @@
+# TODO List for Test-Driven Development
+
+## UI Design
+- [x] Design wireframes for the UI  - 1 Chuck 12/30/2024 8:25 PM PST
+- [X] Create Django project and app for UI - 2 Chuck 12/30/2024 8:35 PM PST
+- [X] Set up Django Channels for real-time communication -3 Chuck 12/31/2024 2:38PM PST
+- [X] Create templates for:   - 4 Chuck 1/2/2025 9:40 AM PST
+  - [X] Home page
+  - [X] Corpus management page
+  - [X] Keyword management page
+  - [X] Scoring results page
+  - [X] Search corpus page
+  - [X] Select keywords page
+- [X] Implement views for:  -5 Chuck 1/2/2025 10:50 PM PST
+  - [X] Home page
+  - [X] Corpus management
+  - [X] Keyword management
+  - [X] Scoring results
+  - [X] Search corpus
+  - [X] Select keywords
+- [X] Write tests for UI views and templates
+  - [X] Run tests for the UI views and templates - 6 Chuck 1/2/2025 1:31 PM PST
+
+## DB Design
+- [X] Design schema for storing document chunks and keywords
+- [X] Set up FAISS for vector database
+- [X] Create Django models for:
+  - [X] Corpus
+  - [X] Document
+  - [X] Chunk
+  - [X] Keyword
+  - [X] Score
+  - [X] KeywordReport
+  - [X] DocumentReport
+  - [X] CorpusReport
+- [X] Write tests for models and database interactions  - 7 Chuck 1/4/2025 10:37 AM PST
+
+## Backend Logic
+- [ ] Implement logic for encoding document chunks
+- [ ] Implement logic for storing and retrieving document chunks from FAISS
+- [ ] Implement logic for keyword scoring based on similarity criteria
+- [ ] Implement logic for searching corpus
+- [ ] Implement logic for selecting keywords from choices
+- [ ] Write tests for backend logic
+
+## Integration with LangChain
+- [ ] Set up LangChain for using different LLMs
+- [ ] Implement logic for vectorizing document chunks using LLMs
+- [ ] Write tests for LangChain integration
+
+## API Development
+- [ ] Create REST API endpoints for:
+  - [ ] Corpus management
+  - [ ] Document chunk management
+  - [ ] Keyword management
+  - [ ] Scoring results
+  - [ ] Search corpus
+  - [ ] Select keywords
+- [ ] Write tests for API endpoints
+
+## DevOps
+- [ ] Set up version control with Git
+- [ ] Create and configure `requirements.txt` for dependencies
+- [ ] Set up continuous integration (CI) with GitHub Actions
+- [ ] Write tests for deployment scripts
+
+## Documentation
+- [ ] Write detailed documentation for:
+  - [ ] Project setup
+  - [ ] Usage instructions
+  - [ ] API endpoints
+  - [ ] Contribution guidelines
+- [ ] Create `CONTRIBUTING.md`
+- [ ] Create `LICENSE` file
+
+## Testing
+- [ ] Write unit tests for all components
+- [ ] Write integration tests for end-to-end functionality
+- [ ] Set up test coverage reporting
+
+## Iterative Development
+- [ ] Implement feature: UI design
+- [ ] Implement feature: DB design
+- [ ] Implement feature: Backend logic
+- [ ] Implement feature: LangChain integration
+- [ ] Implement feature: API development
+- [ ] Implement feature: DevOps
+- [ ] Implement feature: Documentation
+- [ ] Implement feature: Testing
+
+## Database Management Tasks
+- [ ] Define corpus and keywords in the database
+- [ ] Build UI for corpus and keyword management
+- [ ] Implement middleware logic to:
+  - [ ] Search the corpus path
+  - [ ] Find all documents in the corpus
+  - [ ] Add documents to the database
+  

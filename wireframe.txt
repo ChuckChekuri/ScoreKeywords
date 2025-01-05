@@ -1,0 +1,96 @@
+Home Page
++-------------------------+--------------------------+
+|         Sidebar         |       Main Content       |
++-------------------------+--------------------------+
+| [New Corpus]            |                          |
+| [Manage Corpus]         |  Welcome to the Keyword  |
+| [Keyword Scoring]       |  Scoring App!            |
+|                         |  Use the buttons on the  |
+|                         |  left to get started.    |
++-------------------------+--------------------------+
+
+Corpus Management Page
++-------------------------+---------------------------+
+|         Sidebar         |        Main Content       |
++-------------------------+---------------------------+
+| [Home]                  | [Corpus List]             |
+| [New Corpus]            | +-----------------------+ |
+| [Keyword Scoring]       | | Corpus Name | Actions | |
+|                         | +-----------------------+ |
+|                         | | Corpus 1    | [Edit]  | |
+|                         | | Corpus 2    | [Edit]  | |
+|                         | +-----------------------+ |
+|                         | [Add New Corpus]          |
++-------------------------+---------------------------+
+
+New Corpus Page
++----------------------+--------------------------------+
+|         Sidebar      |        Main Content            |
++----------------------+--------------------------------+
+| [Home]               | Corpus Name: [_________]       |
+| [Manage Corpus]      | Document Source:               |
+| [Keyword Scoring]    | [Upload Excel] [Select Folder] |
+|                      | Chunk Size: [____]             |
+|                      | [Save Corpus]                  |
++----------------------+--------------------------------+
+
+Keyword Management Page
++------------------------+--------------------------+
+|         Sidebar        |        Main Content      |
++------------------------+--------------------------+
+| [Home]                 | [Keyword List]           |
+| [New Corpus]           | +----------------------+ |
+| [Keyword Scoring]      | | Keyword | Actions    | |
+|                        | +----------------------+ |
+|                        | | Keyword 1 | [Edit]   | |
+|                        | | Keyword 2 | [Edit]   | |
+|                        | +----------------------+ |
+|                        | [Add New Keyword]        |
++------------------------+--------------------------+
+
+Scoring Results Page
++------------------------+--------------------------+
+|         Sidebar        |        Main Content      |
++------------------------+--------------------------+
+| [Home]                 | Corpus: [Select Corpus]  |
+| [New Corpus]           | [Start Scoring]          |
+| [Manage Corpus]        |                          |
+|                        | [Results]                |
+|                        | +----------------------+ |
+|                        | | Keyword | Score      | |
+|                        | +----------------------+ |
+|                        | | Keyword 1 | 0.85     | |
+|                        | | Keyword 2 | 0.75     | |
+|                        | +----------------------+ |
++------------------------+--------------------------+
+
+Search Corpus Page
++------------------------+--------------------------+
+|         Sidebar        |        Main Content      |
++------------------------+--------------------------+
+| [Home]                 | [Search Corpus]          |
+| [New Corpus]           | +----------------------+ |
+| [Manage Corpus]        | | Search: [__________] | |
+| [Keyword Scoring]      | +----------------------+ |
+|                        | [Search Results]         |
+|                        | +----------------------+ |
+|                        | | Corpus Name | Actions| |
+|                        | +----------------------+ |
+|                        | | Corpus 1    | [View] | |
+|                        | | Corpus 2    | [View] | |
+|                        | +----------------------+ |
++------------------------+--------------------------+
+
+Select Keywords Page
++------------------------+--------------------------+
+|         Sidebar        |        Main Content      |
++------------------------+--------------------------+
+| [Home]                 | [Select Keywords]        |
+| [New Corpus]           | +----------------------+ |
+| [Manage Corpus]        | | Keyword | Actions    | |
+| [Keyword Scoring]      | +----------------------+ |
+|                        | | Keyword 1 | [Select] | |
+|                        | | Keyword 2 | [Select] | |
+|                        | +----------------------+ |
+|                        | [Add New Keyword]        |
++------------------------+--------------------------+

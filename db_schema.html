@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ScoreKeywords Database Schema Description</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #333;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+</style>
+</head>
+<body>
+
+<h1>ScoreKeywords Database Schema Description</h1>
+
+<h2>Overview</h2>
+<p>The ScoreKeywords database is designed to manage and analyze keywords within documents from various corpora. This schema supports the storage of document metadata, keyword scores, and reports on both documents and keywords. Below is a detailed description of each table and its intended use within the database.</p>
+
+<h2>Tables and Their Usage:</h2>
+
+<h3>1. Corpus</h3>
+<ul>
+<li><strong>Purpose:</strong> This table stores information about different document collections or corpora. Each corpus is uniquely identified and can contain multiple documents.</li>
+<li><strong>Columns:</strong>
+    <ul>
+    <li><code>CorpusId</code>: Unique identifier for the corpus.</li>
+    <li><code>CorpusName</code>: Name given to the corpus.</li>
+    <li><code>CorpusType</code>: Type or category of the corpus.</li>
+    <li><code>CorpusPath</code>: Physical or network path where the corpus is stored.</li>
+    <li><code>Username</code>: The user responsible for this corpus.</li>
+    <li><code>IngestDate</code>: When the documents in this corpus were ingested into the system.</li>
+    </ul>
+</li>
+</ul>
+
+<h3>2. Document</h3>
+<ul>
+<li><strong>Purpose:</strong> This table holds details about individual documents within a corpus.</li>
+<li><strong>Columns:</strong>
+    <ul>
+    <li><code>DocId</code>: Unique identifier for each document.</li>
+    <li><code>CorpusId</code>: Foreign key linking to the Corpus table to show which corpus the document belongs to.</li>
+    <li><code>Name</code>: The document's name or title.</li>
+    <li><code>Description</code>: A brief description of the document's content.</li>
+    <li><code>CreatedDate</code>: When the document was added to the database.</li>
+    </ul>
+</li>
+</ul>
+
+<h3>3. Chunk</h3>
+<ul>
+<li><strong>Purpose:</strong> Documents are often too large to process in one go, so they are broken into smaller parts or chunks for analysis.</li>
+<li><strong>Columns:</strong>
+    <ul>
+    <li><code>ChunkId</code>: Identifier for each chunk.</li>
+    <li><code>DocId</code>: Foreign key to the Document table indicating which document this chunk belongs to.</li>
+    <li><code>Name</code>: Name of the chunk, possibly for reference.</li>
+    <li><code>Description</code>: Description or summary of the chunk.</li>
+    <li><code>CreatedDate</code>: Date when the chunk was created.</li>
+    <li><code>ChunkSize</code>: Size of the chunk in bytes, words, or another relevant unit.</li>
+    </ul>
+</li>
+</ul>
+
+<h3>4. Score</h3>
+<ul>
+<li><strong>Purpose:</strong> This table records the score or relevance of keywords found within document chunks.</li>
+<li><strong>Columns:</strong>
+    <ul>
+    <li><code>ChunkId</code>: Links to the Chunk table, showing which chunk this score pertains to.</li>
+    <li><code>KeywordId</code>: Links to the Keyword table, showing which keyword is being scored.</li>
+    <li><code>Score</code>: The numerical score representing the importance or frequency of the keyword.</li>
+    <li><code>ScoreDate</code>: When the score was calculated.</li>
+    </ul>
+</li>
+</ul>
+
+<h3>5. Keyword</h3>
+<ul>
+<li><strong>Purpose:</strong> Stores information about keywords that are being tracked or analyzed across documents.</li>
+<li><strong>Columns:</strong>
+    <ul>
+        <li><code>KeywordId</code>: Unique identifier for each keyword.</li>
+    <li><code>Keyword</code>: The actual keyword or phrase.</li>
+    <li><code>ShortDesc</code>: A brief description or definition of the keyword.</li>
+    <li><code>LongText</code>: Extended information or context about the keyword.</li>
+    </ul>
+</li>
+</ul>
+
+<h3>6. CorpusReport</h3>
+<ul>
+<li><strong>Purpose:</strong> Contains reports generated about a corpus, possibly for summarization, analysis, or review purposes.</li>
+<li><strong>Columns:</strong>
+    <ul>
+    <li><code>ReportId</code>: Identifier for the report.</li>
+    <li><code>CorpusId</code>: Links to which corpus this report is about.</li>
+    <li><code>Title</code>: Title of the report.</li>
+    <li><code>Type</code>: Type of report (e.g., summary, detailed analysis).</li>
+    <li><code>Desc</code>: Description of the report's content.</li>
+    <li><code>Summary</code>: A summary of the findings or content.</li>
+    <li><code>Report</code>: The full report text.</li>
+    <li><code>Reviewer</code>: Who reviewed or generated the report.</li>
+    </ul>
+</li>
+</ul>
+
+<h3>7. DocumentReport</h3>
+<ul>
+<li><strong>Purpose:</strong> Similar to CorpusReport but focused on individual documents, detailing findings, summaries, or reviews.</li>
+<li><strong>Columns:</strong> (Similar structure to CorpusReport but for individual documents.)</li>
+</ul>
+
+<h3>8. KeywordReport</h3>
+<ul>
+<li><strong>Purpose:</strong> Provides detailed reports or studies on specific keywords, including their usage, impact, and relevance across documents.</li>
+<li><strong>Columns:</strong> (Structured similarly to CorpusReport and DocumentReport but focused on keywords.)</li>
+</ul>
+
+<h2>Usage:</h2>
+<ul>
+<li><strong>Corpus Management:</strong> The Corpus table helps in organizing and managing collections of documents, which could be used for different projects or analyses.</li>
+<li><strong>Document Analysis:</strong> Documents are broken down into chunks for easier processing and scoring, which helps in detailed textual analysis or keyword extraction.</li>
+<li><strong>Keyword Scoring:</strong> The Score table is crucial for understanding how relevant or frequent keywords are within different parts of documents, aiding in SEO, content strategy, or thematic analysis.</li>
+<li><strong>Reporting:</strong> Reports on corpora, documents, and keywords provide insights into the data's content, trends, and relevance, helping stakeholders make informed decisions or understand content better.</li>
+</ul>
+
+<p>This schema allows for a structured approach to managing and analyzing large sets of documents and keywords, providing a robust framework for content analysis, data mining, and information retrieval applications.</p>
+
+</body>
+</html>

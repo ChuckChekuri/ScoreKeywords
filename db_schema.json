@@ -1,0 +1,100 @@
+{
+    "CorpusReport": {
+      "columns": [
+        {"name": "ReportId", "type": "INT", "constraints": ["PRIMARY KEY"]},
+        {"name": "CorpusId", "type": "INT", "constraints": ["FOREIGN KEY REFERENCES Corpus(CorpusId)"]},
+        {"name": "Title", "type": "VARCHAR(255)"},
+        {"name": "Type", "type": "VARCHAR(100)"},
+        {"name": "Desc", "type": "TEXT"},
+        {"name": "Summary", "type": "TEXT"},
+        {"name": "Report", "type": "TEXT"},
+        {"name": "Reviewer", "type": "VARCHAR(100)"}
+      ]
+    },
+    "Corpus": {
+      "columns": [
+        {"name": "CorpusId", "type": "INT", "constraints": ["PRIMARY KEY"]},
+        {"name": "CorpusName", "type": "VARCHAR(255)"},
+        {"name": "CorpusType", "type": "VARCHAR(100)"},
+        {"name": "CorpusPath", "type": "VARCHAR(255)"},
+        {"name": "Username", "type": "VARCHAR(100)"},
+        {"name": "IngestDate", "type": "DATETIME"}
+      ],
+      "relationships": [
+        {"related_table": "CorpusReport", "type": "1 to 0..n"},
+        {"related_table": "Document", "type": "1 to 0..n"}
+      ]
+    },
+    "DocumentReport": {
+      "columns": [
+        {"name": "ReportId", "type": "INT", "constraints": ["PRIMARY KEY"]},
+        {"name": "DocId", "type": "INT", "constraints": ["FOREIGN KEY REFERENCES Document(DocId)"]},
+        {"name": "Title", "type": "VARCHAR(255)"},
+        {"name": "Type", "type": "VARCHAR(100)"},
+        {"name": "Desc", "type": "TEXT"},
+        {"name": "Summary", "type": "TEXT"},
+        {"name": "Report", "type": "TEXT"},
+        {"name": "Reviewer", "type": "VARCHAR(100)"}
+      ]
+    },
+    "Document": {
+      "columns": [
+        {"name": "DocId", "type": "INT", "constraints": ["PRIMARY KEY"]},
+        {"name": "CorpusId", "type": "INT", "constraints": ["FOREIGN KEY REFERENCES Corpus(CorpusId)"]},
+        {"name": "Name", "type": "VARCHAR(255)"},
+        {"name": "Description", "type": "TEXT"},
+        {"name": "CreatedDate", "type": "DATETIME"}
+      ],
+      "relationships": [
+        {"related_table": "DocumentReport", "type": "1 to 0..n"},
+        {"related_table": "Chunk", "type": "1 to 1..n"}
+      ]
+    },
+    "Chunk": {
+      "columns": [
+        {"name": "ChunkId", "type": "INT", "constraints": ["PRIMARY KEY"]},
+        {"name": "DocId", "type": "INT", "constraints": ["FOREIGN KEY REFERENCES Document(DocId)"]},
+        {"name": "Name", "type": "VARCHAR(255)"},
+        {"name": "Description", "type": "TEXT"},
+        {"name": "CreatedDate", "type": "DATETIME"},
+        {"name": "ChunkSize", "type": "INT"}
+      ],
+      "relationships": [
+        {"related_table": "Score", "type": "1 to 0..n"}
+      ]
+    },
+    "Score": {
+      "columns": [
+        {"name": "ChunkId", "type": "INT", "constraints": ["FOREIGN KEY REFERENCES Chunk(ChunkId)"]},
+        {"name": "KeywordId", "type": "INT", "constraints": ["FOREIGN KEY REFERENCES Keyword(KeywordId)"]},
+        {"name": "Score", "type": "FLOAT"},
+        {"name": "ScoreDate", "type": "DATETIME"}
+      ],
+      "relationships": [
+        {"related_table": "Keyword", "type": "1 to 1"}
+      ]
+    },
+    "Keyword": {
+      "columns": [
+        {"name": "KeywordId", "type": "INT", "constraints": ["PRIMARY KEY"]},
+        {"name": "Keyword", "type": "VARCHAR(255)"},
+        {"name": "ShortDesc", "type": "VARCHAR(255)"},
+        {"name": "LongText", "type": "TEXT"}
+      ],
+      "relationships": [
+        {"related_table": "Score", "type": "0..n to 1"},
+        {"related_table": "KeywordReport", "type": "1 to 0..n"}
+      ]
+    },
+    "KeywordReport": {
+      "columns": [
+        {"name": "ReportId", "type": "INT", "constraints": ["PRIMARY KEY"]},
+        {"name": "KeywordId", "type": "INT", "constraints": ["FOREIGN KEY REFERENCES Keyword(KeywordId)"]},
+        {"name": "Title", "type": "VARCHAR(255)"},
+        {"name": "Type", "type": "VARCHAR(100)"},
+        {"name": "Summary", "type": "TEXT"},
+        {"name": "Report", "type": "TEXT"},
+        {"name": "Reviewer", "type": "VARCHAR(100)"}
+      ]
+    }
+  }
