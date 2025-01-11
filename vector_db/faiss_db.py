@@ -23,6 +23,7 @@ class FAISSIndex:
 
 def encode_chunk(chunk_text):
     '''Encode a chunk of text'''
+    _ = chunk_text.lower()
     # Implement your encoding logic here
     # For example, use a pre-trained model to encode the text into a vector
     vector = np.random.rand(1, 128)  # Example: Random vector of dimension 128

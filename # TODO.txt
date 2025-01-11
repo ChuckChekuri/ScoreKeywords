@@ -89,10 +89,103 @@
 - [ ] Implement feature: Testing
 
 ## Database Management Tasks
-- [ ] Define corpus and keywords in the database
-- [ ] Build UI for corpus and keyword management
+- [X] Define corpus and keywords in the database
+- [X] Build UI for corpus and keyword management    - 8 Chuck 1/5/2025 5:00 PM PST
 - [ ] Implement middleware logic to:
   - [ ] Search the corpus path
   - [ ] Find all documents in the corpus
   - [ ] Add documents to the database
-  
+
+## Encoder Integration Tasks                        - 97 Chuck 1/6/2025 10:37 AM PST     
+- [X] Setup encoder app structure:
+  - [X] Create encoder app with Django
+  - [X] Create services and interfaces directories
+  - [X] Write unit tests for app structure
+
+- [X] Implement base encoder interface:
+  - [X] Create BaseEncoder interface
+  - [X] Define abstract methods for encoding
+  - [X] Add type hints and docstrings
+  - [X] Define encode_text and encode_batch methods 
+  - [X] Create test class and write unit tests for interface methods
+  - [X] Add validation tests for required methods
+
+- [ ] Implement Transformer Encoders:
+  - [ ] Create TransformerEncoderBase class
+    - [ ] Add initialization with model loading
+    - [ ] Implement pooling strategy
+    - [ ] Add caching mechanism
+  - [ ] Create specific encoder implementations
+    - [ ] BERT encoder
+    - [ ] ALBERT encoder
+    - [ ] RoBERTa encoder
+  - [ ] Add vector store integration
+    - [ ] Connect with FAISS
+    - [ ] Implement vector storage
+    - [ ] Add batch processing support
+  - [ ] Write unit tests
+    - [ ] Test model loading
+    - [ ] Test encoding functions
+    - [ ] Test vector dimensions
+    - [ ] Test batch processing
+  - [ ] Write integration tests
+    - [ ] Test model caching
+    - [ ] Test FAISS integration
+    - [ ] Test search functionality
+    - [ ] Test performance metrics
+
+- [ ] Implement LangChain service:
+  - [ ] Create LangChainService class
+  - [ ] Implement HuggingFace and OpenAI embeddings
+  - [ ] Add vector store integration
+  - [ ] Write unit tests for embeddings
+  - [ ] Write integration tests for vector store
+
+- [ ] Update FAISS database:
+  - [ ] Modify FAISSDatabase to use LangChain
+  - [ ] Add text storage functionality
+  - [ ] Implement batch processing
+  - [ ] Write unit tests for FAISS operations
+  - [ ] Write integration tests for search functionality
+
+- [ ] Create Django models:
+  - [ ] Define EncodedDocument model
+  - [ ] Add indexes and metadata fields
+  - [ ] Write model unit tests
+  - [ ] Create and test migrations
+
+- [ ] Setup configuration:
+  - [ ] Add LangChain settings
+  - [ ] Configure embedding models
+  - [ ] Write configuration tests
+
+- [ ] Create API endpoints:
+  - [ ] Add encode document endpoint
+  - [ ] Add search endpoint
+  - [ ] Write API tests
+  - [ ] Document API usage
+
+- [ ] Performance testing:
+  - [ ] Benchmark encoding operations
+  - [ ] Test vector store performance
+  - [ ] Measure memory usage
+  - [ ] Document performance results
+
+## Integration Testing Tasks
+- [ ] Test encoder app:
+  - [ ] Test with different document types
+  - [ ] Verify vector dimensions
+  - [ ] Check error handling
+  - [ ] Validate search results
+
+- [ ] Test LangChain integration:
+  - [ ] Test HuggingFace embeddings
+  - [ ] Test OpenAI embeddings
+  - [ ] Verify vector store operations
+  - [ ] Test batch processing
+
+- [ ] End-to-end testing:
+  - [ ] Test document upload flow
+  - [ ] Test search functionality
+  - [ ] Verify results accuracy
+  - [ ] Test error scenarios

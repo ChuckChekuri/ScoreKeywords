@@ -1,0 +1,19 @@
+<!-- filepath: ui/templates/manage_keywords.html -->
+{% extends "base.html" %}
+
+{% block title %}Manage Keywords{% endblock %}
+
+{% block content %}
+<h1>Manage Keywords</h1>
+{% if show_form %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+<a href="{% url 'create_corpus' %}">Add New Corpus</a>
+{% else %}
+    {% include "keyword_list.html" %}
+{% endif %}
+<a href="#">Add New Keyword</a>
+{% endblock %}

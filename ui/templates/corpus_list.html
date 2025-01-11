@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corpus List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .col-name {
+            width: 20%;
+        }
+        .col-path {
+            width: 30%;
+        }
+        .col-actions {
+            width: 5%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Corpus List</h1>
+    <table>
+        <tr>
+            <th class="col-name">Corpus Name</th>
+            <th class="col-path">Path</th>
+            <th class="col-actions">Actions</th>
+        </tr>
+        {% for corpus in corpora %}
+        <tr>
+            <td class="col-name">{{ corpus.name }}</td>
+            <td class="col-path">{{ corpus.path }}</td>
+            <td class="col-actions"><a href="#">Edit</a> | <a href="#">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'create_corpus' %}">Add New Corpus</a>
+</body>
+</html>

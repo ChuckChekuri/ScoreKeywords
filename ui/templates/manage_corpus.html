@@ -1,0 +1,19 @@
+<!-- filepath: ui/templates/manage_corpus.html -->
+{% extends "base.html" %}
+
+{% block title %}Manage Corpus{% endblock %}
+
+{% block content %}
+<h1>Manage Corpus</h1>
+{% if show_form %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'create_corpus' %}">Add New Corpus</a>
+{% else %}
+    {% include "corpus_list.html" %}
+{% endif %}
+
+{% endblock %}

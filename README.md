@@ -26,15 +26,16 @@ ScoreKeywords/
 ├── requirements.txt
 ├── manage.py
 ├── skwenv/
-├── corpus/
+├── encoders/
 │   ├── __init__.py
-│   ├── admin.py
 │   ├── apps.py
 │   ├── models.py
-│   ├── tests.py
-│   ├── views.py
-│   ├── migrations/
-│   └── templates/
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── langchain_service.py
+│   │   └── vector_service.py
+│   └── tests/
 ├── vector_db/
 │   ├── __init__.py
 │   ├── faiss_db.py
@@ -47,6 +48,18 @@ ScoreKeywords/
     ├── routing.py
     ├── templates/
     └── static/
+## Runing the dev server
+Step 1: Run the Django Development Server
+- `python manage.py runserver`
+
+Step 2: Access the Views in the Browser
+- Manage Corpus: http://127.0.0.1:8000/corpora/
+- Create Corpus: http://127.0.0.1:8000/corpora/new/
+- Corpus List: http://127.0.0.1:8000/corpora/list/
+- Manage Keywords: http://127.0.0.1:8000/keywords/
+- Create Keyword: http://127.0.0.1:8000/keywords/new/
+- Keyword List: http://127.0.0.1:8000/keywords/list/
+
 
 ## Usage
 1. **Setup Corpus**:

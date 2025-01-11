@@ -1,0 +1,6 @@
+Use pywebcopy for downloading websites to use as a corpus
+missingno package to visualize missing data in a pandas dataframe
+vidgear for video processing ( reading transcripts for you tube video lists)
+textblob simplified NLP without LLMs
+research DSpy to make assertions about LLM outputs
+research lotus-ai to create text from a structured dataset
