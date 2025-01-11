@@ -1,0 +1,8 @@
+skwenv/
+**/__pycache__/
+.codegpt
+.vscode/
+model_cache/
+.pytest_cache/
+dbsqlite3.db
+__pycache__/
