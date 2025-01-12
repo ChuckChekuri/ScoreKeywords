@@ -189,3 +189,23 @@
   - [ ] Test search functionality
   - [ ] Verify results accuracy
   - [ ] Test error scenarios
+
+- Scaling/Logging TODO Items
+- [ ] Implement logic for handling large datasets
+- [ ] Optimize FAISS index for faster search
+- [ ] Implement user authentication and authorization
+- [ ] Add logging and monitoring for backend services
+- [ ] Create a Dockerfile for containerization
+- [ ] Set up deployment pipeline
+
+## Next Logical TODO Items
+- [ ] Implement logic for encoding document chunks
+- [ ] Implement logic for storing and retrieving document chunks from FAISS
+- [ ] Implement logic for keyword scoring based on similarity criteria
+- [ ] Write tests for backend logic
+- [ ] Set up LangChain for using different LLMs
+- [ ] Implement logic for vectorizing document chunks using LLMs
+- [ ] Write tests for LangChain integration
+- [ ] Create REST API endpoints for corpus management
+- [ ] Write detailed documentation for project setup
+- [ ] Write unit tests for all components

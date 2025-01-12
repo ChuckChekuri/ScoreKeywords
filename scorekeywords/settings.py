@@ -141,7 +141,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Transformer Model Settings
 TRANSFORMER_SETTINGS = {
     'cache_dir': os.path.join(BASE_DIR, 'model_cache'),
+    'db_dimension': 768,
     "models": {
+        'default': 'roberta-base',
         'bert-base-uncased': {
             'dimension': 768,
             'batch_size': 16,

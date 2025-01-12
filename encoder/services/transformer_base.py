@@ -113,7 +113,7 @@ class RobertaEncoder(TransformerEncoderBase):
         )
         # Move model to correct device without custom initialization
         self.model.to(self.device)
-        
+
         # Validate model loaded correctly
         if not hasattr(self.model, 'pooler'):
             raise ValueError(f"Model {model_name} does not have expected pooler layer")
