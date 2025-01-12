@@ -25,6 +25,8 @@ class TestTransformerBase(TestCase):
         self.assertEqual(self.encoder.dimension, self.dimension)
         self.assertEqual(self.encoder.batch_size, self.batch_size)
         self.assertTrue(os.path.exists(self.encoder.cache_dir))
+        self.assertIsNotNone(self.encoder.model.pooler.dense.weight.data.sum())
+        self.assertEqual(self.encoder.model.pooler.dense.bias.data.sum(), 0)
 
     def test_device_handling(self):
         expected_device = 'cuda' if torch.cuda.is_available() else 'cpu'

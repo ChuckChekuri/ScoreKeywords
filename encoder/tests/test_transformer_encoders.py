@@ -21,29 +21,26 @@ class TransformerEncodersTest(TestCase):
     def tearDownClass(cls):
         super().tearDownClass()
 
-    
     def test_model_initialization(self):
         for name, encoder in self.encoders:
-            print(f'Name: {name}')
-            print(f'Encoder : {encoder}')
             with self.subTest(encoder=encoder):
                 self.assertIsNotNone(encoder)
                 self.assertIsNotNone(encoder.tokenizer)
-                self.assertTrue(os.path.exists(self.encoder.cache_dir))
+                self.assertTrue(os.path.exists(encoder.cache_dir))
 
     def test_encode_single_text(self):
         for name, encoder in self.encoders:
             with self.subTest(encoder=name):
                 vector = encoder.encode_text(self.test_text)
                 self.assertIsInstance(vector, np.ndarray)
-                self.assertEqual(len(vector), encoder.dimension())
+                self.assertEqual(len(vector), encoder.dimension)
 
     def test_encode_batch_texts(self):
         for name, encoder in self.encoders:
             with self.subTest(encoder=name):
                 vectors = encoder.encode_batch(self.test_texts)
                 self.assertIsInstance(vectors, np.ndarray)
-                self.assertEqual(vectors.shape, (len(self.test_texts), encoder.dimension()))
+                self.assertEqual(vectors.shape, (len(self.test_texts), encoder.dimension))
 
     def test_device_handling(self):
         for name, encoder in self.encoders:
@@ -56,8 +53,8 @@ class TransformerEncodersTest(TestCase):
         for name, encoder in self.encoders:
             with self.subTest(encoder=name):
                 # Test if model files exist in cache
-                self.assertTrue(os.path.exists(self.cache_dir))
-                cached_files = os.listdir(self.cache_dir)
+                self.assertTrue(os.path.exists(encoder.cache_dir))
+                cached_files = os.listdir(encoder.cache_dir)
                 self.assertGreater(len(cached_files), 0)
 
     def test_encoding_consistency(self):
@@ -81,16 +78,16 @@ class TransformerEncodersTest(TestCase):
         for name, encoder in self.encoders:
             with self.subTest(encoder=name):
                 vector = encoder.encode_text(long_text)
-                self.assertEqual(len(vector), encoder.dimension())
+                self.assertEqual(len(vector), encoder.dimension)
 
     def test_batch_size_limits(self):
         large_batch = ["Test sentence."] * 100
         for name, encoder in self.encoders:
             with self.subTest(encoder=name):
                 vectors = encoder.encode_batch(large_batch)
-                self.assertEqual(vectors.shape, (len(large_batch), encoder.dimension()))
+                self.assertEqual(vectors.shape, (len(large_batch), encoder.dimension))
 
     def test_dimension_consistency(self):
         for name, encoder in self.encoders:
             with self.subTest(encoder=name):
-                self.assertEqual(encoder.dimension(), settings.TRANSFORMER_SETTINGS['models'][name]['dimension'])
+                self.assertEqual(encoder.dimension, settings.TRANSFORMER_SETTINGS['models'][name]['dimension'])

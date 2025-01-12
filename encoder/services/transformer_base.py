@@ -1,6 +1,6 @@
 from pathlib import Path
 import torch
-from transformers import AutoTokenizer, AutoModel
+from transformers import AutoTokenizer, AutoModel, RobertaModel, BertModel, AlbertModel
 from ..interfaces.base_encoder import BaseEncoder
 from .pooling import MeanPooling
 import numpy as np
@@ -8,7 +8,7 @@ from django.conf import settings
 
 class TransformerEncoderBase(BaseEncoder):
     """Encodes text using transformer models."""
-    def __init__(self, model_name: str = 'albert-base-uncased'):
+    def __init__(self, model_name: str = 'albert-base-v2'):
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         """Initialize the transformer encoder."""
         # Error messages
@@ -77,16 +77,43 @@ class TransformerEncoderBase(BaseEncoder):
         return self._dimension
 
 class BertEncoder(TransformerEncoderBase):
-    def __init__(self):
-        config = settings.TRANSFORMER_SETTINGS['models']['bert-base-uncased']
-        super().__init__('bert-base-uncased')
+    def __init__(self, model_name: str = 'bert-base-uncased'):
+        super().__init__(model_name)
+        self.model = BertModel.from_pretrained(
+            model_name,
+            output_hidden_states=True,
+            cache_dir=self.cache_dir
+        )
+        if hasattr(self.model, 'pooler'):
+            self.model.pooler.dense.weight.data.normal_(mean=0.0, std=0.02)
+            self.model.pooler.dense.bias.data.zero_()
+        self.model.to(self.device)
+
 class AlbertEncoder(TransformerEncoderBase):
-    def __init__(self):
-        config = settings.TRANSFORMER_SETTINGS['models']['albert-base-v2']
-        super().__init__('albert-base-v2')
+    def __init__(self, model_name: str = 'albert-base-v2'):
+        super().__init__(model_name)
+        self.model = AlbertModel.from_pretrained(
+            model_name,
+            output_hidden_states=True,
+            cache_dir=self.cache_dir
+        )
+        # Albert uses a simple Linear layer as pooler
+        if hasattr(self.model, 'pooler'):
+            self.model.pooler.weight.data.normal_(mean=0.0, std=0.02)
+            self.model.pooler.bias.data.zero_()
+        self.model.to(self.device)
 
 class RobertaEncoder(TransformerEncoderBase):
-    def __init__(self):
-        config = settings.TRANSFORMER_SETTINGS['models']['roberta-base']
-        super().__init__('roberta-base')
-
+    def __init__(self, model_name: str = 'roberta-base'):
+        super().__init__(model_name)
+        self.model = RobertaModel.from_pretrained(
+            model_name,
+            output_hidden_states=True,
+            cache_dir=self.cache_dir
+        )
+        # Move model to correct device without custom initialization
+        self.model.to(self.device)
+        
+        # Validate model loaded correctly
+        if not hasattr(self.model, 'pooler'):
+            raise ValueError(f"Model {model_name} does not have expected pooler layer")
