@@ -110,26 +110,26 @@
   - [X] Create test class and write unit tests for interface methods
   - [X] Add validation tests for required methods
 
-- [ ] Implement Transformer Encoders:
-  - [ ] Create TransformerEncoderBase class
-    - [ ] Add initialization with model loading
-    - [ ] Implement pooling strategy
-    - [ ] Add caching mechanism
-  - [ ] Create specific encoder implementations
-    - [ ] BERT encoder
-    - [ ] ALBERT encoder
-    - [ ] RoBERTa encoder
+- [X] Implement Transformer Encoders:
+  - [X] Create TransformerEncoderBase class
+    - [X] Add initialization with model loading
+    - [X] Implement pooling strategy
+    - [X] Add caching mechanism
+  - [X] Create specific encoder implementations
+    - [X] BERT encoder
+    - [X] ALBERT encoder
+    - [X] RoBERTa encoder
   - [ ] Add vector store integration
     - [ ] Connect with FAISS
     - [ ] Implement vector storage
     - [ ] Add batch processing support
-  - [ ] Write unit tests
-    - [ ] Test model loading
-    - [ ] Test encoding functions
-    - [ ] Test vector dimensions
-    - [ ] Test batch processing
-  - [ ] Write integration tests
-    - [ ] Test model caching
+  - [X] Write unit tests
+    - [X] Test model loading
+    - [X] Test encoding functions
+    - [X] Test vector dimensions
+    - [X] Test batch processing
+  - [X] Write integration tests
+    - [X] Test model caching
     - [ ] Test FAISS integration
     - [ ] Test search functionality
     - [ ] Test performance metrics
