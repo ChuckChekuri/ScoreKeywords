@@ -4,37 +4,32 @@ import torch
 import numpy as np
 from django.test import TestCase
 from django.conf import settings
-from ..services.transformer_base import TransformerEncoderBase
+from ..services.transformer_base import TransformerEncoderBase, BertEncoder, AlbertEncoder, RobertaEncoder
 class TransformerEncodersTest(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.config = settings.TRANSFORMER_SETTINGS['models']['roberta-base']
-        cls.encoder = TransformerEncoderBase(
-            'roberta-base',
-            cls.config['dimension']
-        )
+        cls.encoders = [
+            ('bert-base-uncased', BertEncoder()),
+            ('albert-base-v2', AlbertEncoder()),
+            ('roberta-base', RobertaEncoder())
+        ]
+        cls.test_text = "This is a test sentence."
+        cls.test_texts = ["First test sentence.", "Second test sentence."]
 
     @classmethod
     def tearDownClass(cls):
-        shutil.rmtree(cls.cache_dir, ignore_errors=True)
         super().tearDownClass()
 
-    def setUp(self):
-        self.encoders = [
-            ('bert', TransformerEncoderBase('bert-base-uncased', 768)),
-            ('albert', TransformerEncoderBase('albert-base-v2', 768)),
-            ('roberta', TransformerEncoderBase('roberta-base', 768))
-        ]
-        self.test_text = "This is a test sentence."
-        self.test_texts = ["First test sentence.", "Second test sentence."]
-
+    
     def test_model_initialization(self):
         for name, encoder in self.encoders:
-            with self.subTest(encoder=name):
-                self.assertIsNotNone(encoder.model)
+            print(f'Name: {name}')
+            print(f'Encoder : {encoder}')
+            with self.subTest(encoder=encoder):
+                self.assertIsNotNone(encoder)
                 self.assertIsNotNone(encoder.tokenizer)
-                self.assertTrue(os.path.exists(self.cache_dir))
+                self.assertTrue(os.path.exists(self.encoder.cache_dir))
 
     def test_encode_single_text(self):
         for name, encoder in self.encoders:

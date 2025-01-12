@@ -11,12 +11,9 @@ class TestTransformerBase(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.model_name = 'bert-base-uncased'
-        cls.dimension = 768
-        cls.encoder = TransformerEncoderBase(
-            cls.model_name,
-            cls.dimension
-        )
-
+        cls.encoder = TransformerEncoderBase(cls.model_name)
+        cls.dimension = settings.TRANSFORMER_SETTINGS['models'][cls.model_name]['dimension']
+        cls.batch_size = settings.TRANSFORMER_SETTINGS['models'][cls.model_name]['batch_size']
 
     @classmethod
     def tearDownClass(cls):
@@ -25,7 +22,8 @@ class TestTransformerBase(TestCase):
     def test_initialization(self):
         self.assertIsNotNone(self.encoder.model)
         self.assertIsNotNone(self.encoder.tokenizer)
-        self.assertEqual(self.encoder.dimension(), self.dimension)
+        self.assertEqual(self.encoder.dimension, self.dimension)
+        self.assertEqual(self.encoder.batch_size, self.batch_size)
         self.assertTrue(os.path.exists(self.encoder.cache_dir))
 
     def test_device_handling(self):
