@@ -6,3 +6,4 @@ model_cache/
 .pytest_cache/
 dbsqlite3.db
 __pycache__/
+/corpus
