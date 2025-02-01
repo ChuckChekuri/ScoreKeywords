@@ -17,9 +17,29 @@ This project focuses on scoring keywords within a corpus to understand their rel
 
 2. Install dependencies:
    pip install -r requirements.txt
+## Getting Started
+1. go to : http://github.com/ChuckChekuri/ScoreKeywords
+
+2. Download the Zip file and extract them to "ScoreKeywords" folder
+   This is the project root (PROJECT_ROOT) folder  
+   ![Download Git Source](git_download_zip.png)
+
+
+3. Open Anconda Command Prompt to create python env
+   `cd <PROJECT_ROOT> 
+   `python -m venv skwenv`
+
+4. Install dependencies:
+   pip install -r requirements.txt --trusted-host pypi.python.org --trusted-host pypi.org --trusted-host files.pythonhosted.org 
+
+5. Run tests to verify that code is all there.
+    - python manage.py test ui
+    - pythom manage.py test encoder
+    - python manage.py test vector_db
 
 
 ## Project Structure
+```
 ScoreKeywords/
 ├── .gitignore
 ├── README.md
@@ -48,6 +68,7 @@ ScoreKeywords/
     ├── routing.py
     ├── templates/
     └── static/
+```
 ## Runing the dev server
 Step 1: Run the Django Development Server
 - `python manage.py runserver`
