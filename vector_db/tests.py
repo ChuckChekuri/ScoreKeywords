@@ -1,12 +1,11 @@
 '''vector_db tests'''
 import os
 import faiss
-import unittest
 import numpy as np
 from contextlib import contextmanager
 from django.test import TestCase
 from django.conf import settings
-from ui.models import Chunk, Document, Corpus
+from ui.models import Keyword, Chunk, Document, Corpus
 from vector_db.faiss_db import FAISSIndex, encode_chunk, VectorDB
 
 class OpenMPManager:
@@ -24,7 +23,7 @@ class OpenMPManager:
         else:
             del os.environ['KMP_DUPLICATE_LIB_OK']
 
-class FAISSIndexTests(unittest.TestCase):
+class FAISSIndexTests(TestCase):
     '''Tests for FAISSIndex'''
     def setUp(self):
         self.omp_manager = OpenMPManager()
@@ -169,6 +168,80 @@ class TestVectorDB(TestCase):
         self.assertTrue(len(distances) > 0)
         self.assertTrue(len(indices) > 0)
 
+class TestChunkStorage(TestCase):
+    def setUp(self):
+        self.db = VectorDB()
+        self.test_chunks = [
+            Chunk.objects.create(chunk_txt=f"Test chunk {i}")
+            for i in range(5)
+        ]
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_store_and_retrieve(self):
+        self.db.store_chunks(self.test_chunks)
+        results = self.db.search_similar("Test chunk 0")
+        self.assertEqual(len(results), 5)
+        self.assertEqual(results[0].chunk_txt, "Test chunk 0")
+
+class TestVectorDB2(TestCase):
+    def setUp(self):
+        self.dimension = 768
+        self.test_index_path = "test_faiss.index"
+        self.db = VectorDB(dimension=self.dimension)
+        self.test_vectors = np.random.rand(100, self.dimension).astype('float32')
+        self.test_chunk_ids = list(range(100))
+
+    def tearDown(self):
+        if os.path.exists(self.test_index_path):
+            os.remove(self.test_index_path)
+        if os.path.exists(f"{self.test_index_path}.chunk_ids.npy"):
+            os.remove(f"{self.test_index_path}.chunk_ids.npy")
+
+    def test_init(self):
+        self.assertEqual(self.db.dimension, self.dimension)
+        self.assertEqual(self.db.faiss_index.ntotal, 0)
+
+    def test_add_vectors_batch(self):
+        progress_calls = []
+        def progress_cb(p):
+            progress_calls.append(p)
+
+        self.db.add_vectors(
+            self.test_vectors,
+            chunk_ids=self.test_chunk_ids,
+            batch_size=10,
+            progress_callback=progress_cb
+        )
+
+        self.assertEqual(self.db.faiss_index.ntotal, 100)
+        self.assertEqual(len(progress_calls), 10)
+        self.assertAlmostEqual(progress_calls[-1], 1.0)
+
+    def test_search_vectors(self):
+        self.db.add_vectors(self.test_vectors, self.test_chunk_ids)
+        query = self.test_vectors[0]
+
+        results = self.db.search(query, k=5)
+
+        self.assertEqual(len(results), 5)
+        self.assertEqual(results[0][1], self.test_chunk_ids[0])
+        self.assertAlmostEqual(results[0][0], 0.0, places=5)
+
+    def test_save_load_index(self):
+        self.db.add_vectors(self.test_vectors, self.test_chunk_ids)
+        self.db.save_index(self.test_index_path)
+
+        new_db = VectorDB(dimension=self.dimension)
+        new_db.load_index(self.test_index_path)
+
+        self.assertEqual(new_db.faiss_index.ntotal, 100)
+        self.assertEqual(len(new_db.chunk_ids), 100)
+
+    def test_invalid_vectors(self):
+        wrong_dim = np.random.rand(10, self.dimension + 1)
+        with self.assertRaises(ValueError):
+            self.db.add_vectors(wrong_dim, list(range(10)))
+
+    def test_mismatched_chunk_ids(self):
+        with self.assertRaises(ValueError):
+            self.db.add_vectors(self.test_vectors, chunk_ids=list(range(50)))
+

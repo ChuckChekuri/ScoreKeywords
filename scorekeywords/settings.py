@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
+    'rest_framework',
     'ui',
     'encoder',
 ]
@@ -85,6 +86,10 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+# Corpus file path
+CORPUS_ROOT = os.path.join(BASE_DIR, 'corpus')
+CORPUS_URL = '/corpus/'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

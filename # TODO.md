@@ -1,7 +1,7 @@
 # TODO List for Test-Driven Development
 
 ## UI Design
-- [x] Design wireframes for the UI  - 1 Chuck 12/30/2024 8:25 PM PST
+- [X] Design wireframes for the UI  - 1 Chuck 12/30/2024 8:25 PM PST
 - [X] Create Django project and app for UI - 2 Chuck 12/30/2024 8:35 PM PST
 - [X] Set up Django Channels for real-time communication -3 Chuck 12/31/2024 2:38PM PST
 - [X] Create templates for:   - 4 Chuck 1/2/2025 9:40 AM PST
@@ -36,8 +36,27 @@
 - [X] Write tests for models and database interactions  - 7 Chuck 1/4/2025 10:37 AM PST
 
 ## Backend Logic
-- [ ] Implement logic for encoding document chunks
-- [ ] Implement logic for storing and retrieving document chunks from FAISS
+- [X] Implement logic for encoding document chunks
+- [X] Implement logic for storing and retrieving document chunks from FAISS
+  - [ ] Add chunk metadata storage system
+  - [ ] Implement vector-to-chunk ID mapping
+  - [ ] Add persistent storage mechanism
+  - [ ] Implement bulk operations for large datasets
+    - [ ] Batch insertions
+    - [ ] Batch updates
+    - [ ] Batch deletions
+  - [ ] Add progress tracking for long operations
+    - [ ] Batch processing progress
+    - [ ] Index building progress
+    - [ ] Search operation progress
+  - [ ] Implement comprehensive error handling
+    - [ ] Input validation
+    - [ ] Resource availability checks
+    - [ ] Recovery mechanisms
+  - [ ] Index optimization
+    - [ ] Implement index compression
+    - [ ] Add memory usage optimization
+    - [ ] Configure FAISS index parameters
 - [ ] Implement logic for keyword scoring based on similarity criteria
 - [ ] Implement logic for searching corpus
 - [ ] Implement logic for selecting keywords from choices
@@ -96,7 +115,7 @@
   - [ ] Find all documents in the corpus
   - [ ] Add documents to the database
 
-## Encoder Integration Tasks                        - 97 Chuck 1/6/2025 10:37 AM PST     
+## Encoder Integration Tasks                        - 9 Chuck 1/6/2025 10:37 AM PST     
 - [X] Setup encoder app structure:
   - [X] Create encoder app with Django
   - [X] Create services and interfaces directories
@@ -172,11 +191,11 @@
   - [ ] Document performance results
 
 ## Integration Testing Tasks
-- [ ] Test encoder app:
-  - [ ] Test with different document types
-  - [ ] Verify vector dimensions
-  - [ ] Check error handling
-  - [ ] Validate search results
+- [X] Test encoder app:
+  - [X] Test with different document types
+  - [X] Verify vector dimensions
+  - [X] Check error handling
+  - [X] Validate search results
 
 - [ ] Test LangChain integration:
   - [ ] Test HuggingFace embeddings
@@ -190,22 +209,11 @@
   - [ ] Verify results accuracy
   - [ ] Test error scenarios
 
-- Scaling/Logging TODO Items
+## Scaling/Logging TODO Items
 - [ ] Implement logic for handling large datasets
 - [ ] Optimize FAISS index for faster search
 - [ ] Implement user authentication and authorization
 - [ ] Add logging and monitoring for backend services
 - [ ] Create a Dockerfile for containerization
 - [ ] Set up deployment pipeline
-
-## Next Logical TODO Items
-- [ ] Implement logic for encoding document chunks
-- [ ] Implement logic for storing and retrieving document chunks from FAISS
-- [ ] Implement logic for keyword scoring based on similarity criteria
-- [ ] Write tests for backend logic
-- [ ] Set up LangChain for using different LLMs
-- [ ] Implement logic for vectorizing document chunks using LLMs
-- [ ] Write tests for LangChain integration
-- [ ] Create REST API endpoints for corpus management
-- [ ] Write detailed documentation for project setup
-- [ ] Write unit tests for all components
+- [ ] Document performance results
