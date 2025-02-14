@@ -20,6 +20,7 @@ from encoder.views import EncodingAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('ui.urls')),  # Include the ui app's URLs
+    path('ui/', include('ui.urls')),
+
     path('api/encode/', EncodingAPIView.as_view(),name='api-encode'),  # Include the encoder app's URLs
 ]
