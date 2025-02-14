@@ -2,8 +2,8 @@
 '''Test the consumers'''
 import pytest
 from channels.testing import WebsocketCommunicator
-#from channels.layers import get_channel_layer
-#from django.conf import settings
+from channels.layers import get_channel_layer
+from django.conf import settings
 from django.test import TestCase
 from scorekeywords.asgi import application
 

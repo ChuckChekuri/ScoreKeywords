@@ -75,6 +75,10 @@ class TransformerEncoderBase(BaseEncoder):
 
     def dimension(self) -> int:
         return self._dimension
+    
+    # Provide an alias so that encode_text can be called as encode.
+    def encode(self, text: str):
+        return self.encode_text(text)
 
 class BertEncoder(TransformerEncoderBase):
     def __init__(self, model_name: str = 'bert-base-uncased'):

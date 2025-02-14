@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from encoder.views import EncodingAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('ui.urls')),  # Include the ui app's URLs
+    path('api/encode/', EncodingAPIView.as_view(),name='api-encode'),  # Include the encoder app's URLs
 ]
