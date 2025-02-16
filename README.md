@@ -99,6 +99,26 @@ Step 2: Access the Views in the Browser
 - Vector DB integration for document storage and retrieval.
 - In-memory DB for quick keyword scoring.
 
+
+# Development workflow using dev container.
+
+Here’s a concise development workflow using **Dev Containers** in Visual Studio Code, from initial setup to deployment:
+
+| **Step**               | **Description**                                                                 |
+|-------------------------|---------------------------------------------------------------------------------|
+| **1. Project Setup**    | Clone the project repository and open it in VSCode.                             |
+| **2. Dev Container Config** | Add or configure a `.devcontainer` folder with `Dockerfile` and `devcontainer.json`. |
+| **3. Reopen in Container** | Use the **"Reopen in Container"** command to build and start the Dev Container. |
+| **4. Develop**          | Write and test code inside the containerized environment.                       |
+| **5. Debug**            | Use VSCode’s debugging tools within the container.                              |
+| **6. Build & Test**     | Run build and test commands inside the container.                               |
+| **7. Commit Changes**   | Commit code changes to version control (e.g., Git).                             |
+| **8. CI/CD Integration**| Push changes to trigger CI/CD pipelines for automated testing and deployment.    |
+| **9. Deploy**           | Deploy the application using containerized builds (e.g., Docker images).        |
+
+This workflow ensures a consistent, isolated, and reproducible development environment.
+
+
 ## Contributing
 Please read [CONTRIBUTING.md](link-to-contributing) for details on our code of conduct, and the process for submitting pull requests to us.
 

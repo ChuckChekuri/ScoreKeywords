@@ -1,46 +1,74 @@
 services:
   pgdb:
     image: postgres:latest
+    container_name: score-keywords-pgdb
     restart: unless-stopped
     volumes:
       - /Users/chuckchekuri/mydisk/pgdata:/var/lib/postgresql/data
     env_file:
       - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-appdba}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-notset}
+      POSTGRES_DB: ${POSTGRES_DB:-appdb}
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
+    ports:
+      - 5432:5432
+    networks:
+      - skw-network
 
   redis:
-    profiles: ["testing"]
     image: redis:7-alpine
-    restart: "no"
+    restart: unless-stopped
+    container_name: score-keywords-redis
+    depends_on:
+      pgdb:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
+    ports:
+      - 6379:6379
+    networks:
+      - skw-network
   
   app:
-    build:
-      context: ..
-      dockerfile: .devcontainer/Dockerfile
+    image: skw-image
+    container_name: score-keywords-app
+    restart: unless-stopped
     env_file:
         - .env
-
+    ports:
+      - 8000:8000
+    networks:
+      - skw-network
     volumes:
-      - ../..:/usr/src/app:cached
+      - ..:/home/appuser/scorekeywords:cached
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
 
-    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
-    network_mode: container:pgdb
+    healthcheck:
+      test: ["CMD", "python", "manage.py", "check", "-c", "import http.client; conn = http.client.HTTPConnection('localhost:8000'); conn.request('GET', '/health/'); response = conn.getresponse(); if response.status == 200 else 1)"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
 
     # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
     depends_on:
       pgdb:
         condition: service_healthy
+      redis:
+        condition: service_healthy
 
+networks:
+  skw-network:
+    driver: bridge

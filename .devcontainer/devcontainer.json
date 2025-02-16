@@ -4,45 +4,12 @@
 	"name": "Score Keywords Project",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
-	"workspaceFolder": "/usr/src/app",
+	"workspaceFolder": "/home/appuser/scorekeywords",
 	"features": {
-		"ghcr.io/devcontainers/features/github-cli:1": {
-			"installDirectlyFromGitHubRelease": true,
-			"version": "latest"
-		},
-		"ghcr.io/devcontainers/features/node:1": {
-			"nodeGypDependencies": true,
-			"installYarnUsingApt": true,
-			"version": "latest",
-			"pnpmVersion": "latest",
-			"nvmVersion": "latest"
-		},
-		"ghcr.io/devcontainers/features/sshd:1": {
-			"version": "latest"
-		},
-		"ghcr.io/joshspicer/features/oci-utils:1": {
-			"orasVersion": "0.16.0",
-			"skopeoInstallSource": "automatic"
-		},
 		"ghcr.io/warrenbuckley/codespace-features/sqlite:1": {},
 		"ghcr.io/robbert229/devcontainer-features/postgresql-client:1": {
 			"version": "16"
-		},
-		"ghcr.io/devcontainers-extra/features/live-server:1": {
-			"version": "latest"
-		},
-		"ghcr.io/devcontainers-extra/features/redis-homebrew:1": {
-			"version": "latest"
-		},
-		"ghcr.io/devcontainers-extra/features/wget-homebrew:1": {
-			"version": "latest"
-		},
-		"ghcr.io/devcontainers/features/python:1": {
-			"version": "3.12"
-		},
-		"ghcr.io/devcontainers-contrib/features/black:2": {},
-		"ghcr.io/devcontainers-contrib/features/isort:2": {},
-		"ghcr.io/devcontainers-contrib/features/pylint:2": {}
+		}
 	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
@@ -57,7 +24,7 @@
 	],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "pip install -r requirements.txt && python manage.py migrate",
+	"postCreateCommand": "ls -la /home/appuser/scorekeywords && pwd && pip install -r requirements.txt && pre-commit install && python manage.py migrate",
 	"postStartCommand": "python manage.py collectstatic --noinput",
 	"waitFor": "postCreateCommand",
 
@@ -68,34 +35,79 @@
 				"ms-python.python",
 				"ms-python.vscode-pylance",
 				"ms-python.black-formatter",
+				"charliermarsh.ruff",
 				"batisteo.vscode-django",
 				"ms-azuretools.vscode-docker",
 				"mtxr.sqltools",
 				"mtxr.sqltools-driver-pg",
 				"redhat.vscode-yaml",
-				"esbenp.prettier-vscode",
-				"eamodio.gitlens",
 				"yzhang.markdown-all-in-one",
-				"david-anson.vscode-markdownlint"
+				"david-anson.vscode-markdownlint",
+				"ms-python.pytest",
+				"ms-python.coverage-gutters",
+				"humao.rest-client",
+				"njpwerner.autodocstring",
+				"mhutchie.git-graph",
+				"wholroyd.jinja",
+				"mgesbert.python-path"	
 			],
 			"settings": {
+				// Python Configuration
 				"python.defaultInterpreterPath": "/usr/local/bin/python",
-				"python.formatting.provider": "black",
-				"python.linting.enabled": true,
-				"python.linting.pylintEnabled": true,
+				"python.analysis.typeCheckingMode": "basic",  // Add type checking
+				"python.analysis.autoImportCompletions": true,  // Add auto-imports
+				
+				// Code Formatting
 				"editor.formatOnSave": true,
 				"editor.codeActionsOnSave": {
-					"source.organizeImports": true
+					"source.organizeImports": true,
+					"source.fixAll": true  // Add automatic fixes
 				},
+
+				// Python-specific settings
 				"[python]": {
 					"editor.formatOnSave": true,
-					"editor.defaultFormatter": "GitHub.copilot-chat"
+					"editor.defaultFormatter": "ms-python.black-formatter",
+					"editor.rulers": [88],  // Add line length ruler
+					"editor.wordWrapColumn": 88,
+					"editor.tabSize": 4
 				},
+
+				// Testing
+				"python.testing.pytestEnabled": true,
+				"python.testing.unittestEnabled": false,
+				"python.testing.pytestArgs": [
+					"tests",
+					"-v",
+					"--cov"
+				],
+
+				// Django
+				"files.associations": {
+					"**/templates/*.html": "django-html",
+					"**/templates/*": "django-txt",
+					"**/requirements{/**,*}.{txt,in}": "pip-requirements"
+				},
+
+				// Documentation
+				"autoDocstring.docstringFormat": "google",
+				"autoDocstring.startOnNewLine": true,
+
+				// File handling
+				"files.trimTrailingWhitespace": true,
+				"files.insertFinalNewline": true,
+				"files.trimFinalNewlines": true,
+
+				// Git
+				"git.autofetch": true,
+				"git.enableSmartCommit": true,
+
+				// Replace Copilot formatters with more specific ones
 				"[yaml]": {
-					"editor.defaultFormatter": "GitHub.copilot-chat"
+					"editor.defaultFormatter": "redhat.vscode-yaml"
 				},
 				"[markdown]": {
-					"editor.defaultFormatter": "GitHub.copilot-chat"
+					"editor.defaultFormatter": "yzhang.markdown-all-in-one"
 				}
 			}
 		}

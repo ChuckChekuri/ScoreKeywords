@@ -12,7 +12,7 @@ RUN apt-get update \
 RUN useradd -m appuser
 USER appuser
     
-WORKDIR /usr/src/app
+WORKDIR /home/appuser/scorekeywords
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
