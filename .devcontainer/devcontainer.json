@@ -1,0 +1,106 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/anaconda-postgres
+{
+	"name": "Score Keywords Project",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/usr/src/app",
+	"features": {
+		"ghcr.io/devcontainers/features/github-cli:1": {
+			"installDirectlyFromGitHubRelease": true,
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers/features/node:1": {
+			"nodeGypDependencies": true,
+			"installYarnUsingApt": true,
+			"version": "latest",
+			"pnpmVersion": "latest",
+			"nvmVersion": "latest"
+		},
+		"ghcr.io/devcontainers/features/sshd:1": {
+			"version": "latest"
+		},
+		"ghcr.io/joshspicer/features/oci-utils:1": {
+			"orasVersion": "0.16.0",
+			"skopeoInstallSource": "automatic"
+		},
+		"ghcr.io/warrenbuckley/codespace-features/sqlite:1": {},
+		"ghcr.io/robbert229/devcontainer-features/postgresql-client:1": {
+			"version": "16"
+		},
+		"ghcr.io/devcontainers-extra/features/live-server:1": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers-extra/features/redis-homebrew:1": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers-extra/features/wget-homebrew:1": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers/features/python:1": {
+			"version": "3.12"
+		},
+		"ghcr.io/devcontainers-contrib/features/black:2": {},
+		"ghcr.io/devcontainers-contrib/features/isort:2": {},
+		"ghcr.io/devcontainers-contrib/features/pylint:2": {}
+	},
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts" : [ 
+		5432,  // PostgreSQL database (pgdb)
+		6379,  // Redis 
+		8000,  // Django development server
+		8080   // Live server
+	],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "pip install -r requirements.txt && python manage.py migrate",
+	"postStartCommand": "python manage.py collectstatic --noinput",
+	"waitFor": "postCreateCommand",
+
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-python.black-formatter",
+				"batisteo.vscode-django",
+				"ms-azuretools.vscode-docker",
+				"mtxr.sqltools",
+				"mtxr.sqltools-driver-pg",
+				"redhat.vscode-yaml",
+				"esbenp.prettier-vscode",
+				"eamodio.gitlens",
+				"yzhang.markdown-all-in-one",
+				"david-anson.vscode-markdownlint"
+			],
+			"settings": {
+				"python.defaultInterpreterPath": "/usr/local/bin/python",
+				"python.formatting.provider": "black",
+				"python.linting.enabled": true,
+				"python.linting.pylintEnabled": true,
+				"editor.formatOnSave": true,
+				"editor.codeActionsOnSave": {
+					"source.organizeImports": true
+				},
+				"[python]": {
+					"editor.formatOnSave": true,
+					"editor.defaultFormatter": "GitHub.copilot-chat"
+				},
+				"[yaml]": {
+					"editor.defaultFormatter": "GitHub.copilot-chat"
+				},
+				"[markdown]": {
+					"editor.defaultFormatter": "GitHub.copilot-chat"
+				}
+			}
+		}
+	}
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

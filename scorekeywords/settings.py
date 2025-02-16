@@ -57,6 +57,28 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://redis:6379/0",
+        "OPTIONS": {
+            "socket_timeout": 5,
+        }
+    }
+} if os.getenv('REDIS_ENABLED', 'False').lower() == 'true' else {
+    "default": {
+        "BACKEND": "django.core.cache.backendsCACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://redis:6379/0",
+        "OPTIONS": {
+            "socket_timeout": 5,
+        }
+    }
+} if os.getenv('REDIS_ENABLED', 'False').lower() == 'true' else {
+    "default": {
+        "BACKEND": "django.core.cache.backends
+
 ROOT_URLCONF = 'scorekeywords.urls'
 
 TEMPLATES = [
@@ -99,7 +121,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    'pgdb": {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'skwdb',
+        'USER': 'appdva',  
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', ''),
+        'HOST': 'pgdb',
+        'PORT': '5432',
 }
 
 

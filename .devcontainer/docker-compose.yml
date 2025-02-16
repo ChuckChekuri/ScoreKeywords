@@ -1,0 +1,46 @@
+services:
+  pgdb:
+    image: postgres:latest
+    restart: unless-stopped
+    volumes:
+      - /Users/chuckchekuri/mydisk/pgdata:/var/lib/postgresql/data
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    profiles: ["testing"]
+    image: redis:7-alpine
+    restart: "no"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    env_file:
+        - .env
+
+    volumes:
+      - ../..:/usr/src/app:cached
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    network_mode: container:pgdb
+
+    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+    depends_on:
+      pgdb:
+        condition: service_healthy
+

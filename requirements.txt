@@ -8,6 +8,7 @@ astroid==3.3.8
 attrs==24.3.0
 autobahn==24.4.2
 Automat==24.8.1
+black
 certifi==2024.12.14
 cffi==1.17.1
 channels==4.2.0
@@ -20,6 +21,7 @@ daphne==4.1.2
 dill==0.3.9
 Django==4.2.5
 django-core==1.4.1
+django-debug-toolbar
 django_db==0.0.7
 djangorestframework==3.15.2
 faiss-cpu==1.9.0.post1
@@ -33,6 +35,7 @@ hyperlink==21.0.0
 idna==3.10
 incremental==24.7.2
 iniconfig==2.0.0
+isort
 isort==5.13.2
 jsonpatch==1.33
 jsonpointer==3.0.0
@@ -55,6 +58,7 @@ pyasn1_modules==0.4.1
 pycparser==2.22
 pydantic==2.10.4
 pydantic_core==2.27.2
+pylint
 pylint==3.3.3
 pylint-django==2.6.1
 pylint-plugin-utils==0.8.2
