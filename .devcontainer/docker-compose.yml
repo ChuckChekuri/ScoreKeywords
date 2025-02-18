@@ -1,16 +1,21 @@
+x-common-variables: &common-variables
+  TZ: America/Los_Angeles
+
 services:
   pgdb:
     image: postgres:latest
-    container_name: score-keywords-pgdb
+    container_name: skw-pgdb
     restart: unless-stopped
     volumes:
       - /Users/chuckchekuri/mydisk/pgdata:/var/lib/postgresql/data
     env_file:
       - .env
     environment:
+      <<: *common-variables
       POSTGRES_USER: ${POSTGRES_USER:-appdba}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-notset}
       POSTGRES_DB: ${POSTGRES_DB:-appdb}
+
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 10s
@@ -24,7 +29,7 @@ services:
   redis:
     image: redis:7-alpine
     restart: unless-stopped
-    container_name: score-keywords-redis
+    container_name: skw-redis
     depends_on:
       pgdb:
         condition: service_healthy
@@ -37,19 +42,25 @@ services:
       - 6379:6379
     networks:
       - skw-network
+    environment:
+      <<: *common-variables
   
   app:
     image: skw-image
-    container_name: score-keywords-app
+    container_name: skw-app
     restart: unless-stopped
     env_file:
         - .env
+    environment:
+      <<: *common-variables      
     ports:
       - 8000:8000
     networks:
       - skw-network
     volumes:
       - ..:/home/appuser/scorekeywords:cached
+      - vscode-server:/home/appuser/.vscode-server:cached
+      - vscode-extensions:/home/appuser/.vscode-server/extensions:cached
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
@@ -69,6 +80,10 @@ services:
       redis:
         condition: service_healthy
 
+volumes:
+  vscode-server:
+  vscode-extensions:
+  
 networks:
   skw-network:
     driver: bridge

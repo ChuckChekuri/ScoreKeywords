@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/anaconda-postgres
 {
-	"name": "Score Keywords Project",
+	"name": "SKW App",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
 	"workspaceFolder": "/home/appuser/scorekeywords",
@@ -60,14 +60,13 @@
 				// Code Formatting
 				"editor.formatOnSave": true,
 				"editor.codeActionsOnSave": {
-					"source.organizeImports": true,
-					"source.fixAll": true  // Add automatic fixes
+					"source.organizeImports": "explicit",
+					"source.fixAll": "explicit"  // Add automatic fixes
 				},
 
 				// Python-specific settings
 				"[python]": {
 					"editor.formatOnSave": true,
-					"editor.defaultFormatter": "ms-python.black-formatter",
 					"editor.rulers": [88],  // Add line length ruler
 					"editor.wordWrapColumn": 88,
 					"editor.tabSize": 4
@@ -100,19 +99,10 @@
 
 				// Git
 				"git.autofetch": true,
-				"git.enableSmartCommit": true,
-
-				// Replace Copilot formatters with more specific ones
-				"[yaml]": {
-					"editor.defaultFormatter": "redhat.vscode-yaml"
-				},
-				"[markdown]": {
-					"editor.defaultFormatter": "yzhang.markdown-all-in-one"
-				}
+				"git.enableSmartCommit": true
 			}
 		}
-	}
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	},
+	"remoteUser": "appuser",
+	"updateRemoteUserUID": true
 }

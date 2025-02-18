@@ -1,9 +1,9 @@
 services:
   app:
     image: skw-image
-    container_name: score-keywords-app
+    container_name: skw-app
     build:
       context: ..
       dockerfile: .devcontainer/Dockerfile
       tags:
-        - "score-keywords-app:latest"
+        - "skw-image:latest"
